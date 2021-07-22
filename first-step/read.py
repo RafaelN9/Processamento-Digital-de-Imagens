@@ -1,17 +1,21 @@
+#import matplotlib as mpl
+
+
 from tkinter import *
 from tkinter import filedialog 
-
-from matplotlib import colors
- 
 from cv2 import cvtColor, imread, COLOR_BGR2RGB
 import numpy as np
-from PIL import Image, ImageTk
-from ctypes import windll
 
+from PIL import Image, ImageTk
+
+def to_hex(c):
+    c = c[:3]
+    return "#" + "".join(format(int(np.round(val)), "02x")
+                         for val in c)
+                         
 path = ''
 img = []
 newImg = []
-
 
 #FUNCTIONS OPERATIONS
 
@@ -79,7 +83,7 @@ def insertCanvas():
         mousePos.set(f"{e.x}, {e.y}")
         if e.x < len(img[0]) and e.y < len(img):
             pixel = cvtColor(img, COLOR_BGR2RGB)[e.y, e.x]
-            panelsBottom[1].config(bg=colors.to_hex(pixel/255))
+            panelsBottom[1].config(bg=to_hex(pixel))
 
     def drawLine(event):
         if not(lineMode[0]):
@@ -126,7 +130,7 @@ def insertCanvas():
     displayMousePos.grid(row=0, column=1, pady=2, sticky=NSEW)
     panelsBottom.append(displayMousePos)
     
-    pixelColorBox = Label(frameToolBox, bg=colors.to_hex([0, 0, 0]), width=10, height=3)
+    pixelColorBox = Label(frameToolBox, width=10, height=3)
     pixelColorBox.grid(row=0, column=2, pady=1, sticky=NSEW)
     panelsBottom.append(pixelColorBox)
 
