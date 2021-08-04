@@ -338,19 +338,22 @@ def transformaCosseno():
         return np.cos(exp)
     
     cossSum = np.zeros(shape=(hImg, wImg))
-    cossXArray = np.zeros(shape=(hImg))
-    cossYArray = np.zeros(shape=(wImg))
+    cossXArray = np.zeros(shape=(hImg, hImg))
+    cossYArray = np.zeros(shape=(wImg, wImg))
     #print("terminou")
+    for j in range(wImg):
+        for y in range(wImg):
+            cossYArray[y, j] = cosFunc(y, j, wImg)
     for i in range(hImg):
-        for x in range(wImg):
-            cossXArray[x] = cosFunc(x, i, hImg)
+        for x in range(hImg):
+            cossXArray[x, i] = cosFunc(x, i, hImg)
+    
+    for i in range(hImg):
         for j in range(wImg):
             soma=0
-            for y in range(wImg):
-                cossYArray[y] = cosFunc(y, j, wImg)
             for x in range(hImg):
                 for y in range(wImg):
-                    soma += cossXArray[x] * cossYArray[y] * matrizImagem[x, y]
+                    soma += cossXArray[x, i] * cossYArray[y, j] * matrizImagem[x, y]
             
             if(i==j): print(soma)
             cossSum[i, j] = alpha(i, hImg) * alpha(j, wImg) * soma
@@ -359,6 +362,7 @@ def transformaCosseno():
     cossSum = normalizer(cossSum)
     print(cossSum)
     newImg = np.uint8(cossSum)
+    newImg = splitChannels(newImg)
     createPanelTop(newImg)
     return 
         
