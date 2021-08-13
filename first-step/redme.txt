@@ -1,0 +1,5 @@
+Desenvolvido por Rafael Nogueira Correia
+
+1. Transformada do cosseno funciona com a imagem do bebe;
+2. OTSU só funciona com imagens binárias;
+3. Não foram feitas as atividades: Prática 2 Exercício 4 da aula 6 (O usuário insere um riído na imagem ao clicarna imagem da transformada) e a atividade da aula 12;
